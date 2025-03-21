@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -203,11 +203,44 @@ const SpeakerCard = ({ speaker }: { speaker: Speaker }) => {
 }
 
 // Main Speakers component
+// Main Speakers component
+// Main Speakers component with continuous auto-rotation
 export default function Speakers() {
     const [showAllSpeakers, setShowAllSpeakers] = useState(false)
+    const [api, setApi] = useState<any>(null)
+    const autoplayRef = useRef<NodeJS.Timeout | null>(null)
+
+    // Setup continuous auto-rotation without pausing
+    useEffect(() => {
+        // Only run if we're showing the carousel and have an API
+        if (showAllSpeakers || !api) return
+
+        const autoplayNext = () => {
+            if (api) {
+                api.scrollNext()
+                // Immediately set the next timeout after scrolling
+                autoplayRef.current = setTimeout(autoplayNext, 5000)
+            }
+        }
+
+        // Clear any existing timeout
+        if (autoplayRef.current) {
+            clearTimeout(autoplayRef.current)
+        }
+
+        // Set a new timeout
+        autoplayRef.current = setTimeout(autoplayNext, 5000)
+
+        // Cleanup on unmount or when dependencies change
+        return () => {
+            if (autoplayRef.current) {
+                clearTimeout(autoplayRef.current)
+            }
+        }
+    }, [api, showAllSpeakers])
 
     return (
-        <section id="speakers" className="py-16 md:py-24 cursor-default">
+        <section id="speakers" className="cursor-default py-16 md:py-24">
             <div className="container mx-auto px-4">
                 <div className="mb-12 flex flex-col items-center justify-center gap-2 text-center">
                     <motion.div
@@ -234,17 +267,18 @@ export default function Speakers() {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.5 }}
-                            // Added padding and overflow-visible to fix arrow positioning
                             className="relative overflow-visible px-6 md:px-8"
+                            // Removed all interaction handlers
                         >
                             <Carousel
                                 opts={{
-                                    align: 'center', // Changed to center for better snapping
+                                    align: 'center',
                                     loop: true,
-                                    dragFree: false, // Better snapping behavior
-                                    containScroll: 'trimSnaps', // Ensures complete cards shown
-                                    skipSnaps: false // Don't skip snap positions
+                                    dragFree: false,
+                                    containScroll: 'trimSnaps',
+                                    skipSnaps: false
                                 }}
+                                setApi={setApi}
                                 className="w-full select-none"
                             >
                                 <CarouselContent className="-ml-4 md:-ml-6">
@@ -257,9 +291,9 @@ export default function Speakers() {
                                         </CarouselItem>
                                     ))}
                                 </CarouselContent>
-                                {/* Updated arrow positioning to match organizers component */}
-                                <CarouselPrevious className="bg-background/80 hover:bg-primary/10 -left-1 border-zinc-800 backdrop-blur-sm sm:-left-3 md:-left-4 lg:-left-6" />
-                                <CarouselNext className="bg-background/80 hover:bg-primary/10 -right-1 border-zinc-800 backdrop-blur-sm sm:-right-3 md:-right-4 lg:-right-6" />
+                                {/* Hide arrows on small devices, show on sm and up */}
+                                <CarouselPrevious className="bg-background/80 hover:bg-primary/10 -left-1 hidden border-zinc-800 backdrop-blur-sm sm:-left-3 sm:flex md:-left-4 lg:-left-6" />
+                                <CarouselNext className="bg-background/80 hover:bg-primary/10 -right-1 hidden border-zinc-800 backdrop-blur-sm sm:-right-3 sm:flex md:-right-4 lg:-right-6" />
                             </Carousel>
                         </motion.div>
                     ) : (

@@ -117,7 +117,7 @@ export default function Footer() {
                     <div className="text-center md:text-right">
                         <Link
                             href="/code-of-conduct"
-                            className="text-base transition-colors hover:text-zinc-300 mr-8"
+                            className="text-base transition-colors hover:text-zinc-300 md:mr-8"
                         >
                             Code of Conduct
                         </Link>
