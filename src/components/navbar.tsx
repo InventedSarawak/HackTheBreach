@@ -124,12 +124,18 @@ const NavBar = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden items-center md:flex md:space-x-4 lg:space-x-8">
-                <Link className="hover:text-primary transition-colors" href="#">
+                <Link
+                    className="hover:text-primary transition-colors"
+                    href="#about"
+                >
                     <HyperText characterSet={characterSet} delay={0}>
                         /about
                     </HyperText>
                 </Link>
-                <Link className="hover:text-primary transition-colors" href="#">
+                <Link
+                    className="hover:text-primary transition-colors"
+                    href="#speakers"
+                >
                     <HyperText characterSet={characterSet} delay={170}>
                         /speakers
                     </HyperText>
@@ -200,21 +206,28 @@ const NavBar = () => {
             {/* Mobile Menu Dialog */}
             <dialog
                 ref={dialogRef}
-                onClick={handleDialogClick}
                 className="fixed inset-0 z-50 m-0 w-full max-w-full bg-transparent p-0 text-white backdrop:bg-black/50 backdrop:backdrop-blur-md md:hidden"
+                data-backdrop="true"
+                onClick={(e) => {
+                    const target = e.target as HTMLElement
+                    // Only close if clicking on an element with data-backdrop attribute
+                    if (target.hasAttribute('data-backdrop')) {
+                        setMobileMenuOpen(false)
+                    }
+                }}
             >
                 <div className="bg-card animate-in slide-in-from-top mx-2 mt-20 rounded-lg p-4 shadow-lg duration-300">
                     <div className="flex flex-col gap-4">
                         <Link
                             className="hover:bg-muted animate-in fade-in slide-in-from-bottom-2 rounded-md px-4 py-2 transition-all delay-[50ms] duration-200 hover:translate-x-1"
-                            href="#"
+                            href="#about"
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             About
                         </Link>
                         <Link
                             className="hover:bg-muted animate-in fade-in slide-in-from-bottom-2 rounded-md px-4 py-2 transition-all delay-[100ms] duration-200 hover:translate-x-1"
-                            href="#"
+                            href="#speakers"
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             Speakers
