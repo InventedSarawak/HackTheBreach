@@ -7,6 +7,7 @@ import Footer from '@/components/footer'
 import FAQ from '@/components/faq'
 import Agenda from '@/components/agenda'
 import Hackathon from '@/components/hackathon'
+import Sponsors from '@/components/sponsors'
 
 export default function Home() {
     return (
@@ -14,6 +15,7 @@ export default function Home() {
             <Navbar />
             <Hero />
             <About />
+            <Sponsors />
             <Speakers />
             <Agenda />
             <Organizers />
