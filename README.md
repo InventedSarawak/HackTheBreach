@@ -34,3 +34,11 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## List of Bugs
+
+- **[Navbar]** -> When I click on an item in the navbar it takes me to the content after the animation is completed.
+- **[Navbar]** -> Automatically send navbar up when i click outside
+- **[Navbar]** -> Float the navbar a few pixels from the top
+- **[Navbar]** -> Sometimes when I hover the items the animation does not start
+- **[About]** -> In phone display the about section has a horizontal scroll bar. Some content does not fit.
