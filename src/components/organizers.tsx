@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -99,15 +99,12 @@ const ORGANIZERS: Organizer[] = [
     }
 ]
 
-// Organizer card component - simplified from SpeakerCard
-// Update the OrganizerCard component with smaller dimensions
 // Organizer card component with non-selectable content
 const OrganizerCard = ({ organizer }: { organizer: Organizer }) => {
     const [isHovered, setIsHovered] = useState(false)
 
     return (
         <div
-            // Added select-none to prevent text/image selection during dragging
             className="group relative mx-auto h-[400px] w-[90%] overflow-hidden rounded-xl border border-zinc-800 bg-black select-none"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
@@ -173,10 +170,40 @@ const OrganizerCard = ({ organizer }: { organizer: Organizer }) => {
     )
 }
 
-// The rest of the component stays the same
-// Main Organizers component - rest of code remains the same
+// Main Organizers component with continuous auto-rotation
 export default function Organizers() {
     const [showAllOrganizers, setShowAllOrganizers] = useState(false)
+    const [api, setApi] = useState<any>(null)
+    const autoplayRef = useRef<NodeJS.Timeout | null>(null)
+
+    // Setup continuous auto-rotation without pausing
+    useEffect(() => {
+        // Only run if we're showing the carousel and have an API
+        if (showAllOrganizers || !api) return
+
+        const autoplayNext = () => {
+            if (api) {
+                api.scrollNext()
+                // Immediately set the next timeout after scrolling
+                autoplayRef.current = setTimeout(autoplayNext, 5000)
+            }
+        }
+
+        // Clear any existing timeout
+        if (autoplayRef.current) {
+            clearTimeout(autoplayRef.current)
+        }
+
+        // Set a new timeout
+        autoplayRef.current = setTimeout(autoplayNext, 5000)
+
+        // Cleanup on unmount or when dependencies change
+        return () => {
+            if (autoplayRef.current) {
+                clearTimeout(autoplayRef.current)
+            }
+        }
+    }, [api, showAllOrganizers])
 
     return (
         <section id="organizers" className="cursor-default py-16 md:py-24">
@@ -209,17 +236,17 @@ export default function Organizers() {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.5 }}
-                            // Added padding and overflow-visible to fix arrow positioning
                             className="relative overflow-visible px-6 md:px-8"
                         >
                             <Carousel
                                 opts={{
-                                    align: 'center', // Change from 'start' to 'center'
+                                    align: 'center',
                                     loop: true,
-                                    dragFree: false, // Remove dragFree for better snapping
-                                    containScroll: 'trimSnaps', // Ensure scroll contains complete cards
-                                    skipSnaps: false // Don't skip snap positions
+                                    dragFree: false,
+                                    containScroll: 'trimSnaps',
+                                    skipSnaps: false
                                 }}
+                                setApi={setApi}
                                 className="w-full select-none"
                             >
                                 <CarouselContent className="-ml-4 md:-ml-6">
@@ -234,9 +261,9 @@ export default function Organizers() {
                                         </CarouselItem>
                                     ))}
                                 </CarouselContent>
-                                {/* Keep arrow positioning the same */}
-                                <CarouselPrevious className="bg-background/80 hover:bg-primary/10 -left-1 border-zinc-800 backdrop-blur-sm sm:-left-3 md:-left-4 lg:-left-6" />
-                                <CarouselNext className="bg-background/80 hover:bg-primary/10 -right-1 border-zinc-800 backdrop-blur-sm sm:-right-3 md:-right-4 lg:-right-6" />
+                                {/* Hide arrows on small devices, show on sm and up */}
+                                <CarouselPrevious className="bg-background/80 hover:bg-primary/10 -left-1 hidden border-zinc-800 backdrop-blur-sm sm:-left-3 sm:flex md:-left-4 lg:-left-6" />
+                                <CarouselNext className="bg-background/80 hover:bg-primary/10 -right-1 hidden border-zinc-800 backdrop-blur-sm sm:-right-3 sm:flex md:-right-4 lg:-right-6" />
                             </Carousel>
                         </motion.div>
                     ) : (

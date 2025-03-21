@@ -1,12 +1,12 @@
-import { Button } from '@/components/ui/button'
 import Navbar from '@/components/navbar'
 import Hero from '@/components/hero'
 import About from '@/components/about'
 import Speakers from '@/components/speakers'
 import Organizers from '@/components/organizers'
 import Footer from '@/components/footer'
-import { FlickeringGrid } from '@/components/magicui/flickering-grid'
-import Image from 'next/image'
+import FAQ from '@/components/faq'
+import Agenda from '@/components/agenda'
+import Hackathon from '@/components/hackathon'
 
 export default function Home() {
     return (
@@ -15,7 +15,10 @@ export default function Home() {
             <Hero />
             <About />
             <Speakers />
+            <Agenda />
             <Organizers />
+            <Hackathon />
+            <FAQ />
             <Footer />
         </div>
     )

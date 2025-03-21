@@ -140,17 +140,26 @@ const NavBar = () => {
                         /speakers
                     </HyperText>
                 </Link>
-                <Link className="hover:text-primary transition-colors" href="#">
+                <Link
+                    className="hover:text-primary transition-colors"
+                    href="#agenda"
+                >
                     <HyperText characterSet={characterSet} delay={340}>
                         /agenda
                     </HyperText>
                 </Link>
-                <Link className="hover:text-primary transition-colors" href="#">
+                <Link
+                    className="hover:text-primary transition-colors"
+                    href="#organizers"
+                >
                     <HyperText characterSet={characterSet} delay={510}>
                         /organizers
                     </HyperText>
                 </Link>
-                <Link className="hover:text-primary transition-colors" href="#">
+                <Link
+                    className="hover:text-primary transition-colors"
+                    href="#hackathon"
+                >
                     <HyperText characterSet={characterSet} delay={680}>
                         /hackathon
                     </HyperText>
@@ -234,21 +243,21 @@ const NavBar = () => {
                         </Link>
                         <Link
                             className="hover:bg-muted animate-in fade-in slide-in-from-bottom-2 rounded-md px-4 py-2 transition-all delay-[150ms] duration-200 hover:translate-x-1"
-                            href="#"
+                            href="#agenda"
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             Agenda
                         </Link>
                         <Link
                             className="hover:bg-muted animate-in fade-in slide-in-from-bottom-2 rounded-md px-4 py-2 transition-all delay-[200ms] duration-200 hover:translate-x-1"
-                            href="#"
+                            href="#organizers"
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             Organizers
                         </Link>
                         <Link
                             className="hover:bg-muted animate-in fade-in slide-in-from-bottom-2 rounded-md px-4 py-2 transition-all delay-[250ms] duration-200 hover:translate-x-1"
-                            href="#"
+                            href="#hackathon"
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             Hackathon
