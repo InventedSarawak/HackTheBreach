@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hack The Breach
 
 ## Getting Started
 
@@ -35,10 +35,18 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-## List of Bugs
+## List of Bugs/Issues/Tweaks
 
 - **[Navbar]** -> When I click on an item in the navbar it takes me to the content after the animation is completed.
 - **[Navbar]** -> Automatically send navbar up when i click outside
 - **[Navbar]** -> Float the navbar a few pixels from the top
 - **[Navbar]** -> Sometimes when I hover the items the animation does not start
+- **[Navbar]** -> Change the spacing near the edges. It looks a bit weird.
+- **[Hero]** -> The hypertext animation is too slow.
 - **[About]** -> In phone display the about section has a horizontal scroll bar. Some content does not fit.
+- **[General]** -> Remove the hard coding of Data and make it dynamic and read from a file.
+- **[General]** -> Make a simple backend to store the data.
+- **[General]** -> Add some other pages.
+- **[Tweaks]** -> Add some leftover UI tweaks and improvements.
+- **[General]** -> Get the actual data from and connect it.
+- **[Hackathon]** -> Hover effect on the prizes section and meteor effect.
